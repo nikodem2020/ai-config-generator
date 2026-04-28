@@ -1,0 +1,9 @@
+{
+  "name": "ai-config-generator",
+  "version": "1.0.0",
+  "description": "Free AI Agent Config Generator for small businesses",
+  "scripts": {},
+  "engines": {
+    "node": ">=16"
+  }
+}
