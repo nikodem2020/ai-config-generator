@@ -1,329 +1,249 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Agent Config Generator | Free Tool</title>
-    <meta name="description" content="Generate production-ready AI agent configurations for your business in seconds. Free tool for customer support, social media, email, and more.">
-    <meta name="keywords" content="AI agent, automation, config generator, business automation, Hermes Agent, AI setup">
-    <meta property="og:title" content="AI Agent Config Generator - Free">
-    <meta property="og:description" content="Generate production-ready AI agent configs in seconds. No coding required.">
-    <meta property="og:type" content="website">
-    <style>
-        :root {
-            --bg: #0a0a0f;
-            --surface: #12121a;
-            --surface2: #1a1a26;
-            --border: #2a2a3a;
-            --text: #e0e0f0;
-            --text-muted: #8888a0;
-            --accent: #6366f1;
-            --accent-hover: #818cf8;
-            --accent-glow: rgba(99, 102, 241, 0.15);
-            --success: #22c55e;
-            --warning: #f59e0b;
-            --radius: 8px;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            min-height: 100vh;
-        }
-        .container { max-width: 900px; margin: 0 auto; padding: 2rem 1rem; }
-        .header { text-align: center; padding: 3rem 0 2rem; }
-        .header h1 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #6366f1, #a78bfa, #6366f1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 0.5rem;
-        }
-        .header p { color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
-        .badge {
-            display: inline-block;
-            background: var(--accent-glow);
-            border: 1px solid var(--accent);
-            color: var(--accent);
-            padding: 0.25rem 0.75rem;
-            border-radius: 999px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 1rem;
-        }
-        .steps { display: flex; justify-content: center; gap: 2rem; margin: 2rem 0; }
-        .step { display: flex; align-items: center; gap: 0.5rem; color: var(--text-muted); font-size: 0.9rem; }
-        .step.active { color: var(--accent); }
-        .step-num {
-            width: 28px; height: 28px;
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            background: var(--surface2);
-            border: 2px solid var(--border);
-            font-weight: 700; font-size: 0.8rem;
-        }
-        .step.active .step-num {
-            background: var(--accent);
-            border-color: var(--accent);
-            color: white;
-        }
-        .step-line { width: 40px; height: 2px; background: var(--border); }
-        .card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 2rem;
-            margin-bottom: 1.5rem;
-        }
-        .card h2 { font-size: 1.3rem; margin-bottom: 1.5rem; }
-        .agent-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            gap: 1rem;
-        }
-        .agent-type {
-            background: var(--surface2);
-            border: 2px solid var(--border);
-            border-radius: var(--radius);
-            padding: 1.25rem;
-            cursor: pointer;
-            transition: all 0.2s;
-            text-align: center;
-            user-select: none;
-        }
-        .agent-type:hover { border-color: var(--accent); background: var(--accent-glow); }
-        .agent-type.selected {
-            border-color: var(--accent);
-            background: var(--accent-glow);
-            box-shadow: 0 0 20px var(--accent-glow);
-        }
-        .agent-type .icon { font-size: 2rem; margin-bottom: 0.5rem; }
-        .agent-type .label { font-weight: 600; font-size: 0.9rem; }
-        .agent-type .desc { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem; }
-        .form-group { margin-bottom: 1.25rem; }
-        .form-group label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 0.4rem;
-            font-size: 0.9rem;
-        }
-        input, select, textarea {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            background: var(--surface2);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            color: var(--text);
-            font-size: 0.95rem;
-            transition: border-color 0.2s;
-        }
-        input:focus, select:focus, textarea:focus {
-            outline: none;
-            border-color: var(--accent);
-        }
-        textarea { resize: vertical; min-height: 80px; }
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: var(--radius);
-            font-weight: 600;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: all 0.2s;
-            text-decoration: none;
-        }
-        .btn-primary {
-            background: var(--accent);
-            color: white;
-        }
-        .btn-primary:hover { background: var(--accent-hover); transform: translateY(-1px); }
-        .btn-secondary {
-            background: var(--surface2);
-            color: var(--text);
-            border: 1px solid var(--border);
-        }
-        .btn-secondary:hover { border-color: var(--accent); }
-        .btn-group { display: flex; gap: 1rem; margin-top: 1.5rem; flex-wrap: wrap; }
-        .output-area {
-            background: #0d0d14;
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 1.5rem;
-            font-family: 'SF Mono', 'Fira Code', monospace;
-            font-size: 0.85rem;
-            line-height: 1.7;
-            white-space: pre-wrap;
-            word-break: break-word;
-            max-height: 500px;
-            overflow-y: auto;
-            color: #a5b4fc;
-        }
-        .cta-banner {
-            background: linear-gradient(135deg, var(--surface2), var(--accent-glow));
-            border: 1px solid var(--accent);
-            border-radius: var(--radius);
-            padding: 2rem;
-            text-align: center;
-            margin-top: 2rem;
-        }
-        .cta-banner h3 { font-size: 1.3rem; margin-bottom: 0.5rem; }
-        .cta-banner p { color: var(--text-muted); margin-bottom: 1rem; }
-        .section { display: none; }
-        .section.active { display: block; }
-        .footer {
-            text-align: center;
-            padding: 2rem 0;
-            color: var(--text-muted);
-            font-size: 0.8rem;
-        }
-        @media (max-width: 600px) {
-            .header h1 { font-size: 1.8rem; }
-            .agent-grid { grid-template-columns: repeat(2, 1fr); }
-            .steps { gap: 1rem; }
-            .card { padding: 1.5rem; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Agent Config Generator</title>
+<meta name="description" content="Generate production-ready AI agent configurations for your business in seconds.">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;background:#0a0a0f;color:#e0e0f0;line-height:1.6;min-height:100vh}
+.container{max-width:900px;margin:0 auto;padding:2rem 1rem}
+.header{text-align:center;padding:3rem 0 2rem}
+.header h1{font-size:2.5rem;font-weight:800;color:#818cf8;margin-bottom:0.5rem}
+.header p{color:#8888a0;font-size:1.1rem;max-width:600px;margin:0 auto}
+.badge{display:inline-block;background:rgba(99,102,241,0.15);border:1px solid #6366f1;color:#6366f1;padding:0.25rem 0.75rem;border-radius:999px;font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:1rem}
+.steps{display:flex;justify-content:center;gap:2rem;margin:2rem 0}
+.step{display:flex;align-items:center;gap:0.5rem;color:#8888a0;font-size:0.9rem}
+.step.active{color:#818cf8}
+.step-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#1a1a26;border:2px solid #2a2a3a;font-weight:700;font-size:0.8rem}
+.step.active .step-num{background:#6366f1;border-color:#6366f1;color:#fff}
+.step-line{width:40px;height:2px;background:#2a2a3a}
+.card{background:#12121a;border:1px solid #2a2a3a;border-radius:8px;padding:2rem;margin-bottom:1.5rem}
+.card h2{font-size:1.3rem;margin-bottom:1.5rem}
+.agent-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:1rem}
+.agent-type{background:#1a1a26;border:2px solid #2a2a3a;border-radius:8px;padding:1.25rem;cursor:pointer;transition:all 0.2s;text-align:center}
+.agent-type:hover{border-color:#6366f1;background:rgba(99,102,241,0.1)}
+.agent-type.sel{border-color:#6366f1;background:rgba(99,102,241,0.15);box-shadow:0 0 20px rgba(99,102,241,0.15)}
+.agent-type .icon{font-size:2rem;margin-bottom:0.5rem}
+.agent-type .label{font-weight:600;font-size:0.9rem}
+.agent-type .desc{font-size:0.75rem;color:#8888a0;margin-top:0.25rem}
+.form-group{margin-bottom:1.25rem}
+.form-group label{display:block;font-weight:600;margin-bottom:0.4rem;font-size:0.9rem}
+input,select,textarea{width:100%;padding:0.75rem 1rem;background:#1a1a26;border:1px solid #2a2a3a;border-radius:8px;color:#e0e0f0;font-size:0.95rem}
+input:focus,select:focus,textarea:focus{outline:none;border-color:#6366f1}
+textarea{resize:vertical;min-height:80px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:0.5rem;padding:0.75rem 1.5rem;border:none;border-radius:8px;font-weight:600;font-size:0.95rem;cursor:pointer}
+.btn-primary{background:#6366f1;color:#fff}
+.btn-primary:hover{background:#818cf8}
+.btn-secondary{background:#1a1a26;color:#e0e0f0;border:1px solid #2a2a3a}
+.btn-group{display:flex;gap:1rem;margin-top:1.5rem;flex-wrap:wrap}
+.output-area{background:#0d0d14;border:1px solid #2a2a3a;border-radius:8px;padding:1.5rem;font-family:monospace;font-size:0.85rem;line-height:1.7;white-space:pre-wrap;max-height:500px;overflow-y:auto;color:#a5b4fc}
+.cta-banner{background:linear-gradient(135deg,#1a1a26,rgba(99,102,241,0.15));border:1px solid #6366f1;border-radius:8px;padding:2rem;text-align:center;margin-top:2rem}
+.cta-banner h3{font-size:1.3rem;margin-bottom:0.5rem}
+.cta-banner p{color:#8888a0;margin-bottom:1rem}
+.section{display:none}
+.section.active{display:block}
+.footer{text-align:center;padding:2rem 0;color:#8888a0;font-size:0.8rem}
+@media(max-width:600px){.header h1{font-size:1.8rem}.agent-grid{grid-template-columns:repeat(2,1fr)}.steps{gap:1rem}.card{padding:1.5rem}}
+</style>
 </head>
 <body>
-    <div class="container">
-        <header class="header">
-            <div class="badge">Free Tool</div>
-            <h1>AI Agent Config Generator</h1>
-            <p>Generate production-ready AI agent configurations for your business in seconds. No coding required.</p>
-        </header>
+<div class="container">
 
-        <div class="steps">
-            <div class="step active" id="step1-indicator">
-                <div class="step-num">1</div>
-                <span>Type</span>
-            </div>
-            <div class="step-line"></div>
-            <div class="step" id="step2-indicator">
-                <div class="step-num">2</div>
-                <span>Details</span>
-            </div>
-            <div class="step-line"></div>
-            <div class="step" id="step3-indicator">
-                <div class="step-num">3</div>
-                <span>Generate</span>
-            </div>
-        </div>
+<div class="header">
+<div class="badge">Free Tool</div>
+<h1>AI Agent Config Generator</h1>
+<p>Generate production-ready AI agent configurations for your business in seconds.</p>
+</div>
 
-        <!-- Step 1: Agent Type -->
-        <div class="section active" id="step1">
-            <div class="card">
-                <h2>Select Agent Type</h2>
-                <div class="agent-grid">
-                    <div class="agent-type" data-type="customer-support">
-                        <div class="icon">&#128172;</div>
-                        <div class="label">Customer Support</div>
-                        <div class="desc">Auto-respond to inquiries</div>
-                    </div>
-                    <div class="agent-type" data-type="social-media">
-                        <div class="icon">&#128241;</div>
-                        <div class="label">Social Media</div>
-                        <div class="desc">Create &amp; schedule posts</div>
-                    </div>
-                    <div class="agent-type" data-type="email">
-                        <div class="icon">&#9993;</div>
-                        <div class="label">Email Automation</div>
-                        <div class="desc">Triage &amp; draft responses</div>
-                    </div>
-                    <div class="agent-type" data-type="data-analysis">
-                        <div class="icon">&#128202;</div>
-                        <div class="label">Data Analysis</div>
-                        <div class="desc">Reports &amp; insights</div>
-                    </div>
-                    <div class="agent-type" data-type="content-creator">
-                        <div class="icon">&#9997;</div>
-                        <div class="label">Content Creator</div>
-                        <div class="desc">Blog, copy, marketing</div>
-                    </div>
-                    <div class="agent-type" data-type="research">
-                        <div class="icon">&#128269;</div>
-                        <div class="label">Research</div>
-                        <div class="desc">Competitor &amp; market analysis</div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="steps">
+<div class="step active" id="si1"><div class="step-num">1</div><span>Type</span></div>
+<div class="step-line"></div>
+<div class="step" id="si2"><div class="step-num">2</div><span>Details</span></div>
+<div class="step-line"></div>
+<div class="step" id="si3"><div class="step-num">3</div><span>Generate</span></div>
+</div>
 
-        <!-- Step 2: Business Details -->
-        <div class="section" id="step2">
-            <div class="card">
-                <h2>Business Details</h2>
-                <div class="form-group">
-                    <label for="businessName">Business Name</label>
-                    <input type="text" id="businessName" placeholder="Acme Corp">
-                </div>
-                <div class="form-group">
-                    <label for="industry">Industry</label>
-                    <input type="text" id="industry" placeholder="E-commerce, SaaS, Healthcare, etc.">
-                </div>
-                <div class="form-group">
-                    <label for="tone">Tone of Voice</label>
-                    <select id="tone">
-                        <option value="professional">Professional &amp; Formal</option>
-                        <option value="friendly" selected>Friendly &amp; Conversational</option>
-                        <option value="casual">Casual &amp; Relaxed</option>
-                        <option value="authoritative">Authoritative &amp; Expert</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="products">Key Products/Services</label>
-                    <textarea id="products" placeholder="List your main products or services, one per line"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="audience">Target Audience</label>
-                    <input type="text" id="audience" placeholder="e.g., Small business owners, tech enthusiasts">
-                </div>
-                <div class="form-group">
-                    <label for="website">Website / FAQ URL (optional)</label>
-                    <input type="url" id="website" placeholder="https://yourwebsite.com">
-                </div>
-                <div class="btn-group">
-                    <button type="button" class="btn btn-secondary" id="backBtn2">&#8592; Back</button>
-                    <button type="button" class="btn btn-primary" id="genBtn">Generate Config &#8594;</button>
-                </div>
-            </div>
-        </div>
+<div class="section active" id="s1">
+<div class="card">
+<h2>Select Agent Type</h2>
+<div class="agent-grid">
+<div class="agent-type" data-type="customer-support" id="at1"><div class="icon">&#128172;</div><div class="label">Customer Support</div><div class="desc">Auto-respond to inquiries</div></div>
+<div class="agent-type" data-type="social-media" id="at2"><div class="icon">&#128241;</div><div class="label">Social Media</div><div class="desc">Create and schedule posts</div></div>
+<div class="agent-type" data-type="email" id="at3"><div class="icon">&#9993;</div><div class="label">Email Automation</div><div class="desc">Triage and draft responses</div></div>
+<div class="agent-type" data-type="data-analysis" id="at4"><div class="icon">&#128202;</div><div class="label">Data Analysis</div><div class="desc">Reports and insights</div></div>
+<div class="agent-type" data-type="content-creator" id="at5"><div class="icon">&#9997;</div><div class="label">Content Creator</div><div class="desc">Blog, copy, marketing</div></div>
+<div class="agent-type" data-type="research" id="at6"><div class="icon">&#128269;</div><div class="label">Research</div><div class="desc">Competitor and market analysis</div></div>
+</div>
+</div>
+</div>
 
-        <!-- Step 3: Output -->
-        <div class="section" id="step3">
-            <div class="card">
-                <h2>Your AI Agent Configuration</h2>
-                <div class="output-area" id="output"></div>
-                <div class="btn-group">
-                    <button type="button" class="btn btn-secondary" id="backBtn3">&#8592; Edit Details</button>
-                    <button type="button" class="btn btn-secondary" id="copyBtn">&#128203; Copy</button>
-                    <button type="button" class="btn btn-primary" id="downloadBtn">&#11015; Download .yaml</button>
-                </div>
-            </div>
+<div class="section" id="s2">
+<div class="card">
+<h2>Business Details</h2>
+<div class="form-group"><label for="bizName">Business Name</label><input type="text" id="bizName" placeholder="Acme Corp"></div>
+<div class="form-group"><label for="bizIndustry">Industry</label><input type="text" id="bizIndustry" placeholder="E-commerce, SaaS, Healthcare"></div>
+<div class="form-group"><label for="bizTone">Tone of Voice</label>
+<select id="bizTone">
+<option value="professional">Professional and Formal</option>
+<option value="friendly" selected>Friendly and Conversational</option>
+<option value="casual">Casual and Relaxed</option>
+<option value="authoritative">Authoritative and Expert</option>
+</select>
+</div>
+<div class="form-group"><label for="bizProducts">Key Products/Services</label><textarea id="bizProducts" placeholder="One per line"></textarea></div>
+<div class="form-group"><label for="bizAudience">Target Audience</label><input type="text" id="bizAudience" placeholder="e.g., Small business owners"></div>
+<div class="form-group"><label for="bizWeb">Website (optional)</label><input type="url" id="bizWeb" placeholder="https://yoursite.com"></div>
+<div class="btn-group">
+<button type="button" class="btn btn-secondary" id="back2">Back</button>
+<button type="button" class="btn btn-primary" id="genBtn">Generate Config</button>
+</div>
+</div>
+</div>
 
-            <div class="cta-banner">
-                <h3>Want the Complete Automation Kit?</h3>
-                <p>Get 5 agent configs, 3 automation scripts, 20+ prompts, and setup guides.</p>
-                <a href="https://gumroad.com" target="_blank" class="btn btn-primary" style="text-decoration:none;">
-                    Get the Full Kit - $29 &#8594;
-                </a>
-            </div>
-        </div>
+<div class="section" id="s3">
+<div class="card">
+<h2>Your AI Agent Configuration</h2>
+<div class="output-area" id="outArea"></div>
+<div class="btn-group">
+<button type="button" class="btn btn-secondary" id="back3">Edit Details</button>
+<button type="button" class="btn btn-secondary" id="copyBtn">Copy</button>
+<button type="button" class="btn btn-primary" id="dlBtn">Download YAML</button>
+</div>
+</div>
+<div class="cta-banner">
+<h3>Want the Complete Automation Kit?</h3>
+<p>Get 5 configs, 3 scripts, 20+ prompts, and setup guides.</p>
+<a href="https://gumroad.com" target="_blank" class="btn btn-primary">Get the Full Kit - $29</a>
+</div>
+</div>
 
-        <footer class="footer">
-            <p>AI Agent Config Generator | Free tool for small businesses</p>
-        </footer>
-    </div>
+<div class="footer"><p>AI Agent Config Generator | Free tool</p></div>
+</div>
 
-    <script src="app.js"></script>
+<script>
+(function(){
+var selType='';
+var genYaml='';
+
+document.getElementById('at1').onclick=function(){pickType(this)};
+document.getElementById('at2').onclick=function(){pickType(this)};
+document.getElementById('at3').onclick=function(){pickType(this)};
+document.getElementById('at4').onclick=function(){pickType(this)};
+document.getElementById('at5').onclick=function(){pickType(this)};
+document.getElementById('at6').onclick=function(){pickType(this)};
+
+document.getElementById('back2').onclick=function(){go(1)};
+document.getElementById('genBtn').onclick=function(){gen()};
+document.getElementById('back3').onclick=function(){go(2)};
+document.getElementById('copyBtn').onclick=function(){cpy()};
+document.getElementById('dlBtn').onclick=function(){dl()};
+
+function pickType(el){
+  var all=document.querySelectorAll('.agent-type');
+  for(var i=0;i<all.length;i++) all[i].className='agent-type';
+  el.className='agent-type sel';
+  selType=el.getAttribute('data-type');
+  go(2);
+}
+
+function go(n){
+  var sec=document.querySelectorAll('.section');
+  for(var i=0;i<sec.length;i++) sec[i].className='section';
+  document.getElementById('s'+n).className='section active';
+  var s1=document.getElementById('si1');
+  var s2=document.getElementById('si2');
+  var s3=document.getElementById('si3');
+  s1.className=(n>=1)?'step active':'step';
+  s2.className=(n>=2)?'step active':'step';
+  s3.className=(n>=3)?'step active':'step';
+}
+
+function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
+
+function gen(){
+  if(!selType){alert('Pick an agent type first');return}
+  var bn=document.getElementById('bizName').value||'Your Business';
+  var bi=document.getElementById('bizIndustry').value||'general';
+  var bt=document.getElementById('bizTone').value;
+  var bp=document.getElementById('bizProducts').value||'Your product or service';
+  var ba=document.getElementById('bizAudience').value||'your target market';
+  var bw=document.getElementById('bizWeb').value||'';
+
+  var role='',instr='',kb='',er='',sm='';
+  var pl='';
+  var prods=bp.split('\n').filter(function(p){return p.trim()}).map(function(p){return '- '+p.trim()}).join('\n');
+
+  if(selType==='customer-support'){
+    role='customer_support_specialist';
+    instr='You are a customer support specialist for '+bn+', a '+bi+' company.\n\nResponsibilities:\n- Respond to customer inquiries\n- Provide accurate info from knowledge base\n- Escalate complex issues\n- Maintain '+bt+' tone\n\nGuidelines:\n- Be polite and professional\n- Never make up information\n- If unsure, escalate\n- Follow up for satisfaction';
+    kb=bw?'- Website: '+bw+'\n- Docs: '+bw+'/docs\n- FAQ: '+bw+'/faq':'- Add FAQ URL\n- Add docs URL\n- Add pricing URL';
+    er='- Human request\n- Technical issues\n- Refund requests\n- Account changes\n- Legal questions';
+    sm='- Response under 30 seconds\n- Resolution rate 80%+\n- Satisfaction 4.5/5+\n- Escalation rate below 15%';
+  }else if(selType==='social-media'){
+    role='social_media_manager';
+    instr='You are the social media manager for '+bn+', a '+bi+' company.\n\nResponsibilities:\n- Create posts for Twitter, LinkedIn, Instagram\n- Adapt format per platform\n- Schedule for optimal times\n- Respond to comments\n- Track metrics\n\nContent:\n- '+bt+' brand voice\n- Value-driven content\n- 5-10 hashtags per post\n- Clear call-to-action\n\nTopics:\n'+prods;
+    kb=bw?'- Website: '+bw+'\n- Brand guide: Add URL\n- Competitors: Add handles':'- Add social URLs\n- Add brand guide\n- Add competitor handles';
+    er='- PR crises\n- Customer complaints\n- Partnership inquiries\n- Legal issues';
+    sm='- 3-5 posts/week per platform\n- Engagement rate 3%+\n- Follower growth 5%/month';
+  }else if(selType==='email'){
+    role='email_assistant';
+    instr='You are an email assistant for '+bn+', a '+bi+' company.\n\nResponsibilities:\n- Triage by priority\n- Draft routine responses\n- Flag urgent emails\n- Schedule follow-ups\n\nCategories:\n- Sales: Draft with product info\n- Support: Answer or escalate\n- Partnerships: Acknowledge and forward\n- Complaints: Apologize and escalate\n\nTone: '+bt+'\nProducts:\n'+prods;
+    kb=bw?'- Website: '+bw+'\n- Templates: Add location':'- Add email templates\n- Add pricing info';
+    er='- Urgent flagged emails\n- Complaints\n- Legal questions\n- Deals above $1000';
+    sm='- Response under 1 hour\n- 90%+ accuracy\n- Zero missed urgent';
+  }else if(selType==='data-analysis'){
+    role='business_analyst';
+    instr='You are a business analyst for '+bn+', a '+bi+' company.\n\nResponsibilities:\n- Analyze data, generate insights\n- Create weekly/monthly reports\n- Identify trends and anomalies\n- Recommend decisions\n- Track KPIs\n\nReport format:\n1. Executive summary\n2. Detailed analysis\n3. Trends and patterns\n4. Recommendations\n5. Next steps';
+    kb='- Data sources: Add CRM, analytics\n- KPI definitions: Add metrics\n- Schedule: Weekly Monday, Monthly 1st';
+    er='- Metric drops over 10%\n- Data quality issues\n- Findings needing action\n- Negative trends 3+ periods';
+    sm='- Reports on schedule\n- 3+ actionable insights\n- Early trend detection';
+  }else if(selType==='content-creator'){
+    role='content_creator';
+    instr='You are a content creator for '+bn+', a '+bi+' company.\n\nResponsibilities:\n- Write blog posts and marketing copy\n- Create email newsletters\n- Generate product descriptions\n- Develop content calendars\n- Optimize for SEO\n\nGuidelines:\n- '+bt+' voice\n- Short paragraphs, headings, bullets\n- Data and examples\n- Clear call-to-action\n\nTopics:\n'+prods;
+    kb=bw?'- Website: '+bw+'\n- Voice guide: Add URL':'- Add voice guidelines\n- Add content calendar';
+    er='- Legal review needed\n- Sensitive topics\n- Financial/medical claims';
+    sm='- 2-4 blog posts/week\n- Time on page 2+ minutes\n- Organic traffic 10%/month';
+  }else if(selType==='research'){
+    role='market_researcher';
+    instr='You are a market researcher for '+bn+', a '+bi+' company.\n\nResponsibilities:\n- Monitor competitors\n- Research market trends\n- Analyze customer feedback\n- Identify emerging tech\n- Compile briefings\n\nReport format:\n1. Key findings\n2. Evidence with sources\n3. Implications for '+bn+'\n4. Recommended actions\n5. Risk assessment';
+    kb='- Competitors: Add list\n- Publications: Add list\n- Tools: Add tools';
+    er='- Competitive threats\n- Regulatory changes\n- Market shifts\n- Strategic pivot needs';
+    sm='- Weekly briefings\n- 3+ actionable insights\n- Early competitor detection';
+  }
+
+  var sln=bn.toLowerCase().replace(/[^a-z0-9]/g,'-')+'-'+selType+'-agent';
+
+  genYaml='name: '+sln+'\nversion: "1.0"\n\nagent:\n  role: '+role+'\n  tone: '+bt+'\n  instructions: |\n    '+instr.split('\n').join('\n    ')+'\n  knowledge_base:\n    '+kb.split('\n').join('\n    ')+'\n  escalation_rules:\n    '+er.split('\n').join('\n    ')+'\n  success_metrics:\n    '+sm.split('\n').join('\n    ')+'\n\nbusiness_context:\n  name: "'+bn+'"\n  industry: "'+bi+'"\n  target_audience: "'+ba+'"\n  website: "'+(bw||'Add URL')+'"\n';
+
+  document.getElementById('outArea').textContent=genYaml;
+  go(3);
+}
+
+function cpy(){
+  var ta=document.createElement('textarea');
+  ta.value=genYaml;
+  document.body.appendChild(ta);
+  ta.select();
+  document.execCommand('copy');
+  document.body.removeChild(ta);
+  document.getElementById('copyBtn').innerHTML='Copied!';
+  setTimeout(function(){document.getElementById('copyBtn').innerHTML='Copy'},2000);
+}
+
+function dl(){
+  var bn=document.getElementById('bizName').value||'your-business';
+  var fn=bn.toLowerCase().replace(/[^a-z0-9]/g,'-')+'-'+selType+'-agent.yaml';
+  var blob=new Blob([genYaml],{type:'text/yaml'});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download=fn;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+}
+})();
+</script>
 </body>
 </html>
