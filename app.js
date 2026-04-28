@@ -307,7 +307,7 @@ function downloadConfig() {
 }
 
 // Wire up event listeners on DOM load
-document.addEventListener('DOMContentLoaded', function() {
+
     // Agent type selection
     var agentTypes = document.querySelectorAll('.agent-type');
     for (var i = 0; i < agentTypes.length; i++) {
@@ -360,4 +360,4 @@ document.addEventListener('DOMContentLoaded', function() {
             downloadConfig();
         });
     }
-});
+
