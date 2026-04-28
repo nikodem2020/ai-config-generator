@@ -33,8 +33,6 @@
             min-height: 100vh;
         }
         .container { max-width: 900px; margin: 0 auto; padding: 2rem 1rem; }
-        
-        /* Header */
         .header { text-align: center; padding: 3rem 0 2rem; }
         .header h1 {
             font-size: 2.5rem;
@@ -59,16 +57,8 @@
             letter-spacing: 0.05em;
             margin-bottom: 1rem;
         }
-
-        /* Steps */
         .steps { display: flex; justify-content: center; gap: 2rem; margin: 2rem 0; }
-        .step {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
+        .step { display: flex; align-items: center; gap: 0.5rem; color: var(--text-muted); font-size: 0.9rem; }
         .step.active { color: var(--accent); }
         .step-num {
             width: 28px; height: 28px;
@@ -84,8 +74,6 @@
             color: white;
         }
         .step-line { width: 40px; height: 2px; background: var(--border); }
-
-        /* Card */
         .card {
             background: var(--surface);
             border: 1px solid var(--border);
@@ -94,8 +82,6 @@
             margin-bottom: 1.5rem;
         }
         .card h2 { font-size: 1.3rem; margin-bottom: 1.5rem; }
-
-        /* Agent Type Selection */
         .agent-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
@@ -109,6 +95,7 @@
             cursor: pointer;
             transition: all 0.2s;
             text-align: center;
+            user-select: none;
         }
         .agent-type:hover { border-color: var(--accent); background: var(--accent-glow); }
         .agent-type.selected {
@@ -119,19 +106,12 @@
         .agent-type .icon { font-size: 2rem; margin-bottom: 0.5rem; }
         .agent-type .label { font-weight: 600; font-size: 0.9rem; }
         .agent-type .desc { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem; }
-
-        /* Form */
         .form-group { margin-bottom: 1.25rem; }
         .form-group label {
             display: block;
             font-weight: 600;
             margin-bottom: 0.4rem;
             font-size: 0.9rem;
-        }
-        .form-group .hint {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin-bottom: 0.4rem;
         }
         input, select, textarea {
             width: 100%;
@@ -148,11 +128,10 @@
             border-color: var(--accent);
         }
         textarea { resize: vertical; min-height: 80px; }
-
-        /* Buttons */
         .btn {
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 0.5rem;
             padding: 0.75rem 1.5rem;
             border: none;
@@ -161,6 +140,7 @@
             font-size: 0.95rem;
             cursor: pointer;
             transition: all 0.2s;
+            text-decoration: none;
         }
         .btn-primary {
             background: var(--accent);
@@ -174,8 +154,6 @@
         }
         .btn-secondary:hover { border-color: var(--accent); }
         .btn-group { display: flex; gap: 1rem; margin-top: 1.5rem; flex-wrap: wrap; }
-
-        /* Output */
         .output-area {
             background: #0d0d14;
             border: 1px solid var(--border);
@@ -190,8 +168,6 @@
             overflow-y: auto;
             color: #a5b4fc;
         }
-
-        /* CTA Banner */
         .cta-banner {
             background: linear-gradient(135deg, var(--surface2), var(--accent-glow));
             border: 1px solid var(--accent);
@@ -202,20 +178,14 @@
         }
         .cta-banner h3 { font-size: 1.3rem; margin-bottom: 0.5rem; }
         .cta-banner p { color: var(--text-muted); margin-bottom: 1rem; }
-
-        /* Hidden sections */
         .section { display: none; }
         .section.active { display: block; }
-
-        /* Footer */
         .footer {
             text-align: center;
             padding: 2rem 0;
             color: var(--text-muted);
             font-size: 0.8rem;
         }
-
-        /* Responsive */
         @media (max-width: 600px) {
             .header h1 { font-size: 1.8rem; }
             .agent-grid { grid-template-columns: repeat(2, 1fr); }
@@ -254,35 +224,35 @@
             <div class="card">
                 <h2>Select Agent Type</h2>
                 <div class="agent-grid">
-                    <div class="agent-type" data-type="customer-support" onclick="selectType(this)">
+                    <div class="agent-type" data-type="customer-support">
                         <div class="icon">&#128172;</div>
                         <div class="label">Customer Support</div>
                         <div class="desc">Auto-respond to inquiries</div>
                     </div>
-                    <div class="agent-type" data-type="social-media" onclick="selectType(this)">
+                    <div class="agent-type" data-type="social-media">
                         <div class="icon">&#128241;</div>
                         <div class="label">Social Media</div>
-                        <div class="desc">Create & schedule posts</div>
+                        <div class="desc">Create &amp; schedule posts</div>
                     </div>
-                    <div class="agent-type" data-type="email" onclick="selectType(this)">
+                    <div class="agent-type" data-type="email">
                         <div class="icon">&#9993;</div>
                         <div class="label">Email Automation</div>
-                        <div class="desc">Triage & draft responses</div>
+                        <div class="desc">Triage &amp; draft responses</div>
                     </div>
-                    <div class="agent-type" data-type="data-analysis" onclick="selectType(this)">
+                    <div class="agent-type" data-type="data-analysis">
                         <div class="icon">&#128202;</div>
                         <div class="label">Data Analysis</div>
-                        <div class="desc">Reports & insights</div>
+                        <div class="desc">Reports &amp; insights</div>
                     </div>
-                    <div class="agent-type" data-type="content-creator" onclick="selectType(this)">
+                    <div class="agent-type" data-type="content-creator">
                         <div class="icon">&#9997;</div>
                         <div class="label">Content Creator</div>
                         <div class="desc">Blog, copy, marketing</div>
                     </div>
-                    <div class="agent-type" data-type="research" onclick="selectType(this)">
+                    <div class="agent-type" data-type="research">
                         <div class="icon">&#128269;</div>
                         <div class="label">Research</div>
-                        <div class="desc">Competitor & market analysis</div>
+                        <div class="desc">Competitor &amp; market analysis</div>
                     </div>
                 </div>
             </div>
@@ -293,37 +263,37 @@
             <div class="card">
                 <h2>Business Details</h2>
                 <div class="form-group">
-                    <label>Business Name</label>
+                    <label for="businessName">Business Name</label>
                     <input type="text" id="businessName" placeholder="Acme Corp">
                 </div>
                 <div class="form-group">
-                    <label>Industry</label>
+                    <label for="industry">Industry</label>
                     <input type="text" id="industry" placeholder="E-commerce, SaaS, Healthcare, etc.">
                 </div>
                 <div class="form-group">
-                    <label>Tone of Voice</label>
+                    <label for="tone">Tone of Voice</label>
                     <select id="tone">
-                        <option value="professional">Professional & Formal</option>
-                        <option value="friendly" selected>Friendly & Conversational</option>
-                        <option value="casual">Casual & Relaxed</option>
-                        <option value="authoritative">Authoritative & Expert</option>
+                        <option value="professional">Professional &amp; Formal</option>
+                        <option value="friendly" selected>Friendly &amp; Conversational</option>
+                        <option value="casual">Casual &amp; Relaxed</option>
+                        <option value="authoritative">Authoritative &amp; Expert</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Key Products/Services</label>
+                    <label for="products">Key Products/Services</label>
                     <textarea id="products" placeholder="List your main products or services, one per line"></textarea>
                 </div>
                 <div class="form-group">
-                    <label>Target Audience</label>
+                    <label for="audience">Target Audience</label>
                     <input type="text" id="audience" placeholder="e.g., Small business owners, tech enthusiasts">
                 </div>
                 <div class="form-group">
-                    <label>Website / FAQ URL (optional)</label>
+                    <label for="website">Website / FAQ URL (optional)</label>
                     <input type="url" id="website" placeholder="https://yourwebsite.com">
                 </div>
                 <div class="btn-group">
-                    <button class="btn btn-secondary" onclick="goToStep(1)">&#8592; Back</button>
-                    <button class="btn btn-primary" onclick="generateConfig()">Generate Config &#8594;</button>
+                    <button type="button" class="btn btn-secondary" id="backBtn2">&#8592; Back</button>
+                    <button type="button" class="btn btn-primary" id="genBtn">Generate Config &#8594;</button>
                 </div>
             </div>
         </div>
@@ -334,9 +304,9 @@
                 <h2>Your AI Agent Configuration</h2>
                 <div class="output-area" id="output"></div>
                 <div class="btn-group">
-                    <button class="btn btn-secondary" onclick="goToStep(2)">&#8592; Edit Details</button>
-                    <button class="btn btn-secondary" onclick="copyConfig()">&#128203; Copy</button>
-                    <button class="btn btn-primary" onclick="downloadConfig()">&#11015; Download .yaml</button>
+                    <button type="button" class="btn btn-secondary" id="backBtn3">&#8592; Edit Details</button>
+                    <button type="button" class="btn btn-secondary" id="copyBtn">&#128203; Copy</button>
+                    <button type="button" class="btn btn-primary" id="downloadBtn">&#11015; Download .yaml</button>
                 </div>
             </div>
 
@@ -355,4 +325,5 @@
     </div>
 
     <script src="app.js"></script>
-</body></html>
+</body>
+</html>
